@@ -5,3 +5,4 @@ export * from './price-tick.schema';
 export * from './order.schema';
 export * from './heartbeat.schema';
 export * from './env.schema';
+export * from './risk-config.schema';
