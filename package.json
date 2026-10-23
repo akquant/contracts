@@ -1,0 +1,37 @@
+{
+  "name": "@quanttrade/contracts",
+  "version": "1.0.0",
+  "description": "Quanttrade Shared Contracts, Canonical Enums, Zod Schemas, and Key Builders for Backend, Worker, and Client",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepare": "npm run build",
+    "test": "vitest run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akquant/contracts.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "zod": "^3.25.0 || ^4.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.5"
+  }
+}
