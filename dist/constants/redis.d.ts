@@ -18,6 +18,8 @@ export declare const QUANTTRADE_KEY_PREFIXES: {
     readonly LEGACY_PERSISTENT_SESSIONS: "phoenix:bot:goods:persistent_sessions";
     readonly IDEMPOTENCY_SIGNAL: "quanttrade:idempotency:signal:";
     readonly HEARTBEAT_WORKER: "quanttrade:heartbeat:worker:";
+    readonly CLAIM_CLOSE: "quanttrade:claim:close:";
+    readonly TRAILING_STATE: "quanttrade:trailing_state:";
 };
 export declare const QUANTTRADE_CHANNELS: {
     readonly COMMANDS: "quanttrade:bot:commands";

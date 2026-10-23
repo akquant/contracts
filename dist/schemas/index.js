@@ -21,4 +21,5 @@ __exportStar(require("./price-tick.schema"), exports);
 __exportStar(require("./order.schema"), exports);
 __exportStar(require("./heartbeat.schema"), exports);
 __exportStar(require("./env.schema"), exports);
+__exportStar(require("./risk-config.schema"), exports);
 //# sourceMappingURL=index.js.map

@@ -21,6 +21,8 @@ exports.QUANTTRADE_KEY_PREFIXES = {
     LEGACY_PERSISTENT_SESSIONS: 'phoenix:bot:goods:persistent_sessions',
     IDEMPOTENCY_SIGNAL: 'quanttrade:idempotency:signal:',
     HEARTBEAT_WORKER: 'quanttrade:heartbeat:worker:',
+    CLAIM_CLOSE: 'quanttrade:claim:close:',
+    TRAILING_STATE: 'quanttrade:trailing_state:',
 };
 exports.QUANTTRADE_CHANNELS = {
     COMMANDS: 'quanttrade:bot:commands',
