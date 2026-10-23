@@ -1,6 +1,6 @@
 {
   "name": "@quanttrade/contracts",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Quanttrade Shared Contracts, Canonical Enums, Zod Schemas, and Key Builders for Backend, Worker, and Client",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

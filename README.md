@@ -6,14 +6,14 @@ Shared Quanttrade canonical contracts, schemas, enums, strategy registries, and 
 
 ### Via Git tag (Recommended)
 ```bash
-npm install git+https://github.com/akquant/contracts.git#v1.0.0
+npm install git+https://github.com/akquant/contracts.git#v1.1.0
 ```
 
 Or add to your `package.json`:
 ```json
 {
   "dependencies": {
-    "@quanttrade/contracts": "git+https://github.com/akquant/contracts.git#v1.0.0"
+    "@quanttrade/contracts": "git+https://github.com/akquant/contracts.git#v1.1.0"
   }
 }
 ```
