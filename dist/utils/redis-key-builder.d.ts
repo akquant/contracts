@@ -25,5 +25,7 @@ export declare const QuanttradeRedisKeys: {
     priceStream(): string;
     /** Dead letter queue stream key */
     dlqStream(): string;
+    /** USD/VND exchange rate Redis key */
+    fxUsdVnd(): string;
 };
 //# sourceMappingURL=redis-key-builder.d.ts.map

@@ -66,4 +66,9 @@ export const QuanttradeRedisKeys = {
   dlqStream(): string {
     return QUANTTRADE_STREAMS.DLQ;
   },
+
+  /** USD/VND exchange rate Redis key */
+  fxUsdVnd(): string {
+    return QUANTTRADE_KEY_PREFIXES.FX_USD_VND;
+  },
 };

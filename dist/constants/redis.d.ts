@@ -20,6 +20,7 @@ export declare const QUANTTRADE_KEY_PREFIXES: {
     readonly HEARTBEAT_WORKER: "quanttrade:heartbeat:worker:";
     readonly CLAIM_CLOSE: "quanttrade:claim:close:";
     readonly TRAILING_STATE: "quanttrade:trailing_state:";
+    readonly FX_USD_VND: "quanttrade:fx:USD:VND";
 };
 export declare const QUANTTRADE_CHANNELS: {
     readonly COMMANDS: "quanttrade:bot:commands";

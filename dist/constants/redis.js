@@ -23,6 +23,7 @@ exports.QUANTTRADE_KEY_PREFIXES = {
     HEARTBEAT_WORKER: 'quanttrade:heartbeat:worker:',
     CLAIM_CLOSE: 'quanttrade:claim:close:',
     TRAILING_STATE: 'quanttrade:trailing_state:',
+    FX_USD_VND: 'quanttrade:fx:USD:VND',
 };
 exports.QUANTTRADE_CHANNELS = {
     COMMANDS: 'quanttrade:bot:commands',
