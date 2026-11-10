@@ -18,6 +18,10 @@ import {
   isValidCurrencyCode,
   isFxRateStale,
   formatMoneyWithCurrency,
+  DynamicGridUserConfigSchema,
+  DEFAULT_DYNAMIC_GRID_CONFIG,
+  buildDynamicGridConfigSignature,
+  RestartBotSchema,
 } from '../index';
 
 describe('@quanttrade/contracts Unit Test Suite', () => {
@@ -253,6 +257,68 @@ describe('@quanttrade/contracts Unit Test Suite', () => {
       expect(formatMoneyWithCurrency(150.5, 'USD')).toBe('$150.50');
       expect(formatMoneyWithCurrency(2500000, 'VND')).toContain('2.500.000');
       expect(formatMoneyWithCurrency(100, undefined)).toBe('---');
+    });
+  });
+
+  describe('DynamicGridUserConfig and Signature Schema', () => {
+    it('applies default values for empty gridConfig', () => {
+      const parsed = DynamicGridUserConfigSchema.parse({});
+      expect(parsed).toEqual(DEFAULT_DYNAMIC_GRID_CONFIG);
+      expect(parsed.gridMode).toBe('AUTO_REGIME');
+      expect(parsed.spacingMode).toBe('FIB_ATR');
+      expect(parsed.maxGridLayers).toBe(3);
+    });
+
+    it('validates custom gridConfig properly', () => {
+      const custom = {
+        gridMode: 'LONG_ONLY' as const,
+        spacingMode: 'GEOMETRIC' as const,
+        maxGridLayers: 5,
+        gridStepPct: 0.5,
+        tpStepRatio: 1.5,
+        slBasketMult: 4.0,
+      };
+      const parsed = DynamicGridUserConfigSchema.parse(custom);
+      expect(parsed.gridMode).toBe('LONG_ONLY');
+      expect(parsed.spacingMode).toBe('GEOMETRIC');
+      expect(parsed.maxGridLayers).toBe(5);
+      expect(parsed.gridStepPct).toBe(0.5);
+    });
+
+    it('rejects invalid grid config values outside safety boundaries', () => {
+      expect(() => DynamicGridUserConfigSchema.parse({ maxGridLayers: 0 })).toThrow();
+      expect(() => DynamicGridUserConfigSchema.parse({ maxGridLayers: 6 })).toThrow();
+      expect(() => DynamicGridUserConfigSchema.parse({ gridMode: 'INVALID' })).toThrow();
+      expect(() => DynamicGridUserConfigSchema.parse({ atrStepMult: 0.1 })).toThrow();
+    });
+
+    it('builds unique deterministic signature for grid configs', () => {
+      const defaultSig = buildDynamicGridConfigSignature();
+      const customSig = buildDynamicGridConfigSignature({
+        gridMode: 'LONG_ONLY',
+        maxGridLayers: 2,
+      });
+      expect(defaultSig).toBe('AUTO_REGIME:FIB_ATR:3:1.20:0.40:none:1.00:3.50:3');
+      expect(customSig).toBe('LONG_ONLY:FIB_ATR:2:1.20:0.40:none:1.00:3.50:3');
+      expect(defaultSig).not.toBe(customSig);
+    });
+
+    it('parses StartBot and RestartBot schemas with optional gridConfig', () => {
+      const startPayload = {
+        tradingAccountId: 'acc-1',
+        symbol: 'SI5COZ26',
+        strategy: 'DynamicGridStrategy',
+        gridConfig: {
+          gridMode: 'SHORT_ONLY' as const,
+          maxGridLayers: 4,
+        },
+      };
+      const parsedStart = StartBotSchema.parse(startPayload);
+      expect(parsedStart.gridConfig?.gridMode).toBe('SHORT_ONLY');
+      expect(parsedStart.gridConfig?.maxGridLayers).toBe(4);
+
+      const parsedRestart = RestartBotSchema.parse(startPayload);
+      expect(parsedRestart.gridConfig?.gridMode).toBe('SHORT_ONLY');
     });
   });
 });
