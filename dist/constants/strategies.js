@@ -4,7 +4,8 @@
  * Single Source of Truth for Quanttrade strategies across Backend, Worker, and Client.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.STRATEGY_LEGACY_MAPPING = exports.STRATEGY_METADATA_REGISTRY = exports.CANONICAL_STRATEGY_IDS = void 0;
+exports.STRATEGY_LEGACY_MAPPING = exports.STRATEGY_METADATA_REGISTRY = exports.CANONICAL_STRATEGIES = exports.CANONICAL_STRATEGY_IDS = void 0;
+exports.isCanonicalStrategyId = isCanonicalStrategyId;
 exports.findCanonicalStrategyId = findCanonicalStrategyId;
 exports.getCanonicalStrategyId = getCanonicalStrategyId;
 exports.isStrategyActive = isStrategyActive;
@@ -26,6 +27,12 @@ exports.CANONICAL_STRATEGY_IDS = [
     'PineScriptStrategy',
     'DynamicGridStrategy',
 ];
+exports.CANONICAL_STRATEGIES = exports.CANONICAL_STRATEGY_IDS;
+function isCanonicalStrategyId(id) {
+    if (!id)
+        return false;
+    return exports.CANONICAL_STRATEGY_IDS.includes(id);
+}
 exports.STRATEGY_METADATA_REGISTRY = {
     HftMicroScalpStrategy: {
         id: 'HftMicroScalpStrategy',

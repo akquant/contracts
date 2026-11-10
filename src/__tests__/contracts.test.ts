@@ -4,6 +4,8 @@ import {
   isStrategyActive,
   getActiveStrategyIds,
   CANONICAL_STRATEGY_IDS,
+  CANONICAL_STRATEGIES,
+  isCanonicalStrategyId,
   toCanonicalResolution,
   toCanonicalTimeframe,
   formatTimeframeDisplay,
@@ -32,6 +34,9 @@ describe('@quanttrade/contracts Unit Test Suite', () => {
       expect(isStrategyActive('HftMicroScalpStrategy')).toBe(true);
       expect(isStrategyActive('MomentumStrategy')).toBe(true);
       expect(isStrategyActive('DynamicGridStrategy')).toBe(true);
+      expect(isCanonicalStrategyId('DynamicGridStrategy')).toBe(true);
+      expect(isCanonicalStrategyId('NonExistent')).toBe(false);
+      expect(CANONICAL_STRATEGIES).toContain('DynamicGridStrategy');
     });
 
     it('identifies unreleased coming soon strategies', () => {

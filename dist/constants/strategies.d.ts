@@ -5,6 +5,8 @@
 import { type CanonicalResolution, type CanonicalTimeframe } from './resolutions';
 export declare const CANONICAL_STRATEGY_IDS: readonly ["HftMicroScalpStrategy", "TrendFollowingStrategy", "MomentumStrategy", "MeanReversionStrategy", "CalendarSpreadStrategy", "HedgingStrategy", "SonicStrategy", "HgWeekly5TpStrategy", "PineScriptStrategy", "DynamicGridStrategy"];
 export type CanonicalStrategyId = (typeof CANONICAL_STRATEGY_IDS)[number];
+export declare const CANONICAL_STRATEGIES: readonly ["HftMicroScalpStrategy", "TrendFollowingStrategy", "MomentumStrategy", "MeanReversionStrategy", "CalendarSpreadStrategy", "HedgingStrategy", "SonicStrategy", "HgWeekly5TpStrategy", "PineScriptStrategy", "DynamicGridStrategy"];
+export declare function isCanonicalStrategyId(id?: string): id is CanonicalStrategyId;
 export type StrategyReleaseStatus = 'ACTIVE' | 'COMING_SOON' | 'DISABLED' | 'RETIRED';
 export interface StrategyMetadata {
     id: CanonicalStrategyId;

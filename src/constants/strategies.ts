@@ -24,6 +24,13 @@ export const CANONICAL_STRATEGY_IDS = [
 
 export type CanonicalStrategyId = (typeof CANONICAL_STRATEGY_IDS)[number];
 
+export const CANONICAL_STRATEGIES = CANONICAL_STRATEGY_IDS;
+
+export function isCanonicalStrategyId(id?: string): id is CanonicalStrategyId {
+  if (!id) return false;
+  return (CANONICAL_STRATEGY_IDS as readonly string[]).includes(id);
+}
+
 export type StrategyReleaseStatus = 'ACTIVE' | 'COMING_SOON' | 'DISABLED' | 'RETIRED';
 
 export interface StrategyMetadata {
