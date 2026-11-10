@@ -27,6 +27,7 @@ describe('@quanttrade/contracts Unit Test Suite', () => {
       expect(isStrategyActive('TrendFollowingStrategy')).toBe(true);
       expect(isStrategyActive('HftMicroScalpStrategy')).toBe(true);
       expect(isStrategyActive('MomentumStrategy')).toBe(true);
+      expect(isStrategyActive('DynamicGridStrategy')).toBe(true);
     });
 
     it('identifies unreleased coming soon strategies', () => {
@@ -40,15 +41,22 @@ describe('@quanttrade/contracts Unit Test Suite', () => {
     it('resolves legacy aliases to canonical strategies', () => {
       expect(getCanonicalStrategyId('ai_sniper')).toBe('TrendFollowingStrategy');
       expect(getCanonicalStrategyId('MARKET_MAKER')).toBe('HftMicroScalpStrategy');
-      expect(getCanonicalStrategyId('GRID')).toBe('MeanReversionStrategy');
+      expect(getCanonicalStrategyId('GRID')).toBe('DynamicGridStrategy');
+      expect(getCanonicalStrategyId('DYNAMIC_GRID')).toBe('DynamicGridStrategy');
+      expect(getCanonicalStrategyId('ADAPTIVE_GRID')).toBe('DynamicGridStrategy');
       expect(getCanonicalStrategyId('SONIC')).toBe('SonicStrategy');
       expect(getCanonicalStrategyId('hg_weekly_5tp')).toBe('HgWeekly5TpStrategy');
       expect(getCanonicalStrategyId('PINESCRIPT')).toBe('PineScriptStrategy');
     });
 
-    it('returns exact 3 active strategy IDs for current phase', () => {
+    it('returns exact 4 active strategy IDs for current phase', () => {
       const active = getActiveStrategyIds();
-      expect(active).toEqual(['HftMicroScalpStrategy', 'TrendFollowingStrategy', 'MomentumStrategy']);
+      expect(active).toEqual([
+        'HftMicroScalpStrategy',
+        'TrendFollowingStrategy',
+        'MomentumStrategy',
+        'DynamicGridStrategy',
+      ]);
     });
   });
 

@@ -19,6 +19,7 @@ export const CANONICAL_STRATEGY_IDS = [
   'SonicStrategy',
   'HgWeekly5TpStrategy',
   'PineScriptStrategy',
+  'DynamicGridStrategy',
 ] as const;
 
 export type CanonicalStrategyId = (typeof CANONICAL_STRATEGY_IDS)[number];
@@ -137,6 +138,17 @@ export const STRATEGY_METADATA_REGISTRY: Record<CanonicalStrategyId, StrategyMet
     releaseStatus: 'COMING_SOON',
     description: 'Tự động hóa 24/7 theo bất kỳ kịch bản Pine Script v4/v5 nào từ Pine Editor hoặc TradingView (UT Bot, LuxAlgo, Sonic R,...).',
   },
+  DynamicGridStrategy: {
+    id: 'DynamicGridStrategy',
+    name: 'Dynamic Grid',
+    nameVi: 'Bot Lưới Động Đa Chế Độ (Smart Dynamic Grid)',
+    category: 'HỒI QUY',
+    recommendedSymbols: ['SI5C', 'CLE', 'CP2', 'PL'],
+    timeframes: ['5m', '15m', '1h', '4h'],
+    winRateEstimate: '78.0%',
+    releaseStatus: 'ACTIVE',
+    description: 'Chiến lược lưới thích ứng đa chế độ (Neutral/Long/Short Grid), bước lưới động Fib-ATR, gom trung bình giá TP tự động tối ưu hóa cho SACT.',
+  },
 };
 
 /**
@@ -152,6 +164,7 @@ export const STRATEGY_LEGACY_MAPPING: Record<string, CanonicalStrategyId> = {
   SonicStrategy: 'SonicStrategy',
   HgWeekly5TpStrategy: 'HgWeekly5TpStrategy',
   PineScriptStrategy: 'PineScriptStrategy',
+  DynamicGridStrategy: 'DynamicGridStrategy',
   // Backward-compatible aliases:
   PINESCRIPT: 'PineScriptStrategy',
   pinescript: 'PineScriptStrategy',
@@ -163,7 +176,12 @@ export const STRATEGY_LEGACY_MAPPING: Record<string, CanonicalStrategyId> = {
   sonic_3in1: 'SonicStrategy',
   SONIC: 'SonicStrategy',
   MARKET_MAKER: 'HftMicroScalpStrategy',
-  GRID: 'MeanReversionStrategy',
+  GRID: 'DynamicGridStrategy',
+  grid: 'DynamicGridStrategy',
+  DYNAMIC_GRID: 'DynamicGridStrategy',
+  dynamic_grid: 'DynamicGridStrategy',
+  ADAPTIVE_GRID: 'DynamicGridStrategy',
+  adaptive_grid: 'DynamicGridStrategy',
   HEDGING: 'HedgingStrategy',
   SMC_COMMODITY: 'TrendFollowingStrategy',
   BREAKOUT: 'TrendFollowingStrategy',
