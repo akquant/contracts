@@ -41,7 +41,7 @@ exports.SignalCreatedPayloadSchema = zod_1.z.object({
     action: zod_1.z.enum(signal_action_enum_1.SIGNAL_ACTIONS),
     legKey: zod_1.z.string().min(1).default('ENTRY'),
     barCloseTs: zod_1.z.number().int().positive(),
-    mode: zod_1.z.enum(signal_action_enum_1.SIGNAL_MODES),
+    mode: zod_1.z.preprocess(() => 'LIVE', zod_1.z.enum(signal_action_enum_1.SIGNAL_MODES)).default('LIVE'),
     strategy: exports.SignalStrategyRefSchema,
     entry: exports.SignalEntrySchema,
     risk: exports.SignalRiskSchema.optional(),

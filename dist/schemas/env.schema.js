@@ -25,7 +25,7 @@ exports.QuanttradeBackendEnvSchema = zod_1.z.object({
     QUANTTRADE_CONSUMER_NAME: zod_1.z.string().optional(),
     QUANTTRADE_DLQ_STREAM: zod_1.z.string().min(1).default('quanttrade.dlq.signal.created'),
     QUANTTRADE_MAX_RETRIES: numberFromString(1, 20).default(5),
-    QUANTTRADE_AUTO_EXECUTION_ENABLED: booleanFromString.default(false),
+    QUANTTRADE_AUTO_EXECUTION_ENABLED: booleanFromString.default(true),
     QUANTTRADE_LIMIT_ORDER_TIMEOUT_MS: numberFromString(1000, 300000).default(60000),
     QUANTTRADE_HEARTBEAT_TIMEOUT_SEC: numberFromString(10, 3600).default(180),
     QUANTTRADE_ORDER_TYPE: zod_1.z.literal('LIMIT').default('LIMIT'),

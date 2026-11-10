@@ -45,7 +45,7 @@ export const SignalCreatedPayloadSchema = z.object({
   action: z.enum(SIGNAL_ACTIONS),
   legKey: z.string().min(1).default('ENTRY'),
   barCloseTs: z.number().int().positive(),
-  mode: z.enum(SIGNAL_MODES),
+  mode: z.preprocess(() => 'LIVE', z.enum(SIGNAL_MODES)).default('LIVE'),
   strategy: SignalStrategyRefSchema,
   entry: SignalEntrySchema,
   risk: SignalRiskSchema.optional(),

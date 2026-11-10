@@ -49,10 +49,9 @@ export declare const SignalCreatedPayloadSchema: z.ZodObject<{
     }>;
     legKey: z.ZodDefault<z.ZodString>;
     barCloseTs: z.ZodNumber;
-    mode: z.ZodEnum<{
+    mode: z.ZodDefault<z.ZodPreprocess<z.ZodEnum<{
         LIVE: "LIVE";
-        PAPER: "PAPER";
-    }>;
+    }>, unknown>>;
     strategy: z.ZodObject<{
         name: z.ZodString;
         version: z.ZodString;
@@ -108,10 +107,9 @@ export declare const SignalCreatedEnvelopeSchema: z.ZodObject<{
         }>;
         legKey: z.ZodDefault<z.ZodString>;
         barCloseTs: z.ZodNumber;
-        mode: z.ZodEnum<{
+        mode: z.ZodDefault<z.ZodPreprocess<z.ZodEnum<{
             LIVE: "LIVE";
-            PAPER: "PAPER";
-        }>;
+        }>, unknown>>;
         strategy: z.ZodObject<{
             name: z.ZodString;
             version: z.ZodString;
