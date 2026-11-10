@@ -1,7 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RestartBotSchema = exports.StopBotSchema = exports.StartBotSchema = void 0;
+exports.RestartBotSchema = exports.StopBotSchema = exports.StartBotSchema = exports.BotScheduleConfigSchema = exports.TimeWindowItemSchema = exports.BotScheduleModeSchema = void 0;
 const zod_1 = require("zod");
+exports.BotScheduleModeSchema = zod_1.z.enum(['NONE', 'DURATION', 'TIME_WINDOW']);
+exports.TimeWindowItemSchema = zod_1.z.object({
+    start: zod_1.z.string().regex(/^([01]\d|2[0-3]):([0-5]\d)$/, 'Invalid time format (HH:mm)'),
+    end: zod_1.z.string().regex(/^([01]\d|2[0-3]):([0-5]\d)$/, 'Invalid time format (HH:mm)'),
+});
+exports.BotScheduleConfigSchema = zod_1.z.object({
+    mode: exports.BotScheduleModeSchema.default('NONE'),
+    timezone: zod_1.z.string().default('Asia/Ho_Chi_Minh'),
+    startAt: zod_1.z.string().optional(),
+    endAt: zod_1.z.string().optional(),
+    windows: zod_1.z.array(exports.TimeWindowItemSchema).max(5).optional(),
+});
 exports.StartBotSchema = zod_1.z.object({
     tradingAccountId: zod_1.z.string().min(1, 'tradingAccountId is required'),
     symbol: zod_1.z
@@ -20,6 +32,7 @@ exports.StartBotSchema = zod_1.z.object({
     pineScriptCode: zod_1.z.string().optional(),
     scriptName: zod_1.z.string().optional(),
     existingLockId: zod_1.z.string().optional(),
+    schedule: exports.BotScheduleConfigSchema.optional(),
 });
 exports.StopBotSchema = zod_1.z.object({
     tradingAccountId: zod_1.z.string().optional(),
@@ -48,5 +61,6 @@ exports.RestartBotSchema = zod_1.z.object({
     pineScriptCode: zod_1.z.string().optional(),
     scriptName: zod_1.z.string().optional(),
     reason: zod_1.z.string().optional(),
+    schedule: exports.BotScheduleConfigSchema.optional(),
 });
 //# sourceMappingURL=bot-config.schema.js.map

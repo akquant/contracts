@@ -1,4 +1,5 @@
 export const BOT_SESSION_STATUSES = [
+  'SCHEDULED',
   'STOPPED',
   'STARTING',
   'RUNNING',

@@ -39,6 +39,13 @@ export const BotSessionSchema = z.object({
   workerId: z.string().optional(),
   workerHealth: z.enum(['HEALTHY', 'DEGRADED', 'UNREACHABLE']).optional(),
   errorReason: z.string().optional(),
+  scheduleMode: z.enum(['NONE', 'DURATION', 'TIME_WINDOW']).optional().default('NONE'),
+  timezone: z.string().optional().default('Asia/Ho_Chi_Minh'),
+  scheduleStartAt: z.string().nullable().optional(),
+  scheduleEndAt: z.string().nullable().optional(),
+  scheduleWindows: z.array(z.object({ start: z.string(), end: z.string() })).nullable().optional(),
+  nextTransitionAt: z.string().nullable().optional(),
+  scheduleStatusReason: z.string().nullable().optional(),
 });
 
 export type BotSessionContract = z.infer<typeof BotSessionSchema>;

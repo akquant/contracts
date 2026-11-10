@@ -9,6 +9,11 @@ exports.findCanonicalStrategyId = findCanonicalStrategyId;
 exports.getCanonicalStrategyId = getCanonicalStrategyId;
 exports.isStrategyActive = isStrategyActive;
 exports.getActiveStrategyIds = getActiveStrategyIds;
+exports.getStrategySupportedTimeframes = getStrategySupportedTimeframes;
+exports.getStrategySupportedResolutions = getStrategySupportedResolutions;
+exports.getStrategyDefaultTimeframe = getStrategyDefaultTimeframe;
+exports.validateStrategyTimeframe = validateStrategyTimeframe;
+const resolutions_1 = require("./resolutions");
 exports.CANONICAL_STRATEGY_IDS = [
     'HftMicroScalpStrategy',
     'TrendFollowingStrategy',
@@ -104,7 +109,7 @@ exports.STRATEGY_METADATA_REGISTRY = {
         nameVi: 'SACT HG Weekly 5TP V2 (Đồng Hàng Tuần 5-TP)',
         category: 'ĐỘNG LƯỢNG',
         recommendedSymbols: ['SI5C', 'CLE', 'CP2'],
-        timeframes: ['5m', '15m', '1h', '4h', '1d'],
+        timeframes: ['15m', '1h', '4h', '1d'],
         winRateEstimate: '79.0%',
         releaseStatus: 'COMING_SOON',
         description: 'Chiến lược giao dịch hợp đồng Đồng với 18 mô hình tín hiệu, chốt lời nấc thang 5 mục tiêu (TP1-TP5) và dời dừng lỗ hòa vốn tự động.',
@@ -176,5 +181,100 @@ function isStrategyActive(strategyId) {
 /** Get list of currently active strategy IDs */
 function getActiveStrategyIds() {
     return exports.CANONICAL_STRATEGY_IDS.filter((id) => exports.STRATEGY_METADATA_REGISTRY[id].releaseStatus === 'ACTIVE');
+}
+const TIMEFRAME_TO_RES_MAP = {
+    '1m': '1',
+    '5m': '5',
+    '15m': '15',
+    '30m': '30',
+    '1h': '60',
+    '4h': '240',
+    '1d': 'D',
+};
+/**
+ * Get supported canonical timeframes for a given strategy.
+ */
+function getStrategySupportedTimeframes(strategyId) {
+    const canonical = findCanonicalStrategyId(strategyId);
+    if (!canonical || !exports.STRATEGY_METADATA_REGISTRY[canonical]) {
+        return [];
+    }
+    return exports.STRATEGY_METADATA_REGISTRY[canonical].timeframes;
+}
+/**
+ * Get supported canonical resolutions for a given strategy.
+ */
+function getStrategySupportedResolutions(strategyId) {
+    const tfs = getStrategySupportedTimeframes(strategyId);
+    return tfs.map((tf) => TIMEFRAME_TO_RES_MAP[tf] || '15');
+}
+/**
+ * Get default canonical timeframe for a strategy.
+ */
+function getStrategyDefaultTimeframe(strategyId) {
+    const tfs = getStrategySupportedTimeframes(strategyId);
+    if (tfs.includes('15m'))
+        return '15m';
+    if (tfs.includes('5m'))
+        return '5m';
+    if (tfs.includes('1h'))
+        return '1h';
+    return tfs[0] || '15m';
+}
+/**
+ * Validate whether a timeframe or resolution input is supported by a strategy.
+ * Returns a structured result with error codes and descriptive messages.
+ */
+function validateStrategyTimeframe(rawStrategyId, rawTfOrRes) {
+    const canonicalStrategy = findCanonicalStrategyId(rawStrategyId);
+    if (!canonicalStrategy || !exports.STRATEGY_METADATA_REGISTRY[canonicalStrategy]) {
+        return {
+            valid: false,
+            code: 'UNKNOWN_STRATEGY',
+            strategyId: rawStrategyId,
+            requestedInput: rawTfOrRes,
+            supportedTimeframes: [],
+            supportedResolutions: [],
+            message: `Chiến lược không xác định: "${rawStrategyId}".`,
+        };
+    }
+    const supportedTfs = getStrategySupportedTimeframes(canonicalStrategy);
+    const supportedRes = getStrategySupportedResolutions(canonicalStrategy);
+    const parsed = (0, resolutions_1.parseStrictCanonicalTimeframe)(rawTfOrRes);
+    if (!parsed) {
+        return {
+            valid: false,
+            code: 'INVALID_TIMEFRAME_FORMAT',
+            strategyId: canonicalStrategy,
+            requestedInput: rawTfOrRes,
+            supportedTimeframes: supportedTfs,
+            supportedResolutions: supportedRes,
+            message: `Định dạng khung thời gian không hợp lệ: "${rawTfOrRes}". Các định dạng hợp lệ: 1m, 5m, 15m, 1h, 4h, 1d.`,
+        };
+    }
+    const isSupported = supportedTfs.includes(parsed.timeframe);
+    if (!isSupported) {
+        const meta = exports.STRATEGY_METADATA_REGISTRY[canonicalStrategy];
+        return {
+            valid: false,
+            code: 'UNSUPPORTED_STRATEGY_TIMEFRAME',
+            strategyId: canonicalStrategy,
+            requestedInput: rawTfOrRes,
+            canonicalTimeframe: parsed.timeframe,
+            canonicalResolution: parsed.resolution,
+            supportedTimeframes: supportedTfs,
+            supportedResolutions: supportedRes,
+            message: `Chiến lược "${meta.nameVi || meta.name}" không hỗ trợ khung thời gian "${parsed.timeframe}". Các khung hỗ trợ: ${supportedTfs.join(', ')}.`,
+        };
+    }
+    return {
+        valid: true,
+        strategyId: canonicalStrategy,
+        requestedInput: rawTfOrRes,
+        canonicalTimeframe: parsed.timeframe,
+        canonicalResolution: parsed.resolution,
+        supportedTimeframes: supportedTfs,
+        supportedResolutions: supportedRes,
+    };
 }
 //# sourceMappingURL=strategies.js.map

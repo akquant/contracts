@@ -23,20 +23,20 @@ export declare const QuanttradeBackendEnvSchema: z.ZodObject<{
     QUANTTRADE_DLQ_STREAM: z.ZodDefault<z.ZodString>;
     QUANTTRADE_MAX_RETRIES: z.ZodDefault<z.ZodUnion<readonly [z.ZodNumber, z.ZodPipe<z.ZodString, z.ZodTransform<number, string>>]>>;
     QUANTTRADE_AUTO_EXECUTION_ENABLED: z.ZodDefault<z.ZodUnion<readonly [z.ZodBoolean, z.ZodPipe<z.ZodEnum<{
-        0: "0";
         1: "1";
+        0: "0";
         true: "true";
         false: "false";
-    }>, z.ZodTransform<boolean, "0" | "1" | "true" | "false">>]>>;
+    }>, z.ZodTransform<boolean, "1" | "0" | "true" | "false">>]>>;
     QUANTTRADE_LIMIT_ORDER_TIMEOUT_MS: z.ZodDefault<z.ZodUnion<readonly [z.ZodNumber, z.ZodPipe<z.ZodString, z.ZodTransform<number, string>>]>>;
     QUANTTRADE_HEARTBEAT_TIMEOUT_SEC: z.ZodDefault<z.ZodUnion<readonly [z.ZodNumber, z.ZodPipe<z.ZodString, z.ZodTransform<number, string>>]>>;
     QUANTTRADE_ORDER_TYPE: z.ZodDefault<z.ZodLiteral<"LIMIT">>;
     QUANTTRADE_SYMBOL_EXCLUSIVITY_ENABLED: z.ZodDefault<z.ZodUnion<readonly [z.ZodBoolean, z.ZodPipe<z.ZodEnum<{
-        0: "0";
         1: "1";
+        0: "0";
         true: "true";
         false: "false";
-    }>, z.ZodTransform<boolean, "0" | "1" | "true" | "false">>]>>;
+    }>, z.ZodTransform<boolean, "1" | "0" | "true" | "false">>]>>;
     QUANTTRADE_LOG_LEVEL: z.ZodDefault<z.ZodEnum<{
         error: "error";
         debug: "debug";
@@ -71,17 +71,17 @@ export declare const QuanttradeWorkerEnvSchema: z.ZodObject<{
     FCOM_WS_URL: z.ZodString;
     REDIS_URL: z.ZodString;
     AUTO_START_BOTS: z.ZodDefault<z.ZodUnion<readonly [z.ZodBoolean, z.ZodPipe<z.ZodEnum<{
-        0: "0";
         1: "1";
+        0: "0";
         true: "true";
         false: "false";
-    }>, z.ZodTransform<boolean, "0" | "1" | "true" | "false">>]>>;
+    }>, z.ZodTransform<boolean, "1" | "0" | "true" | "false">>]>>;
     QUANTTRADE_BOT_AUTO_START_ENABLED: z.ZodOptional<z.ZodUnion<readonly [z.ZodBoolean, z.ZodPipe<z.ZodEnum<{
-        0: "0";
         1: "1";
+        0: "0";
         true: "true";
         false: "false";
-    }>, z.ZodTransform<boolean, "0" | "1" | "true" | "false">>]>>;
+    }>, z.ZodTransform<boolean, "1" | "0" | "true" | "false">>]>>;
     WORKER_ONLY: z.ZodDefault<z.ZodUnion<[z.ZodLiteral<true>, z.ZodPipe<z.ZodEnum<{
         true: "true";
     }>, z.ZodTransform<boolean, "true">>]>>;
@@ -91,11 +91,11 @@ export declare const QuanttradeWorkerEnvSchema: z.ZodObject<{
     QUANTTRADE_SIGNAL_STREAM: z.ZodDefault<z.ZodString>;
     QUANTTRADE_PRICE_STREAM: z.ZodDefault<z.ZodString>;
     PRICE_TICK_PUBLISH_ENABLED: z.ZodDefault<z.ZodUnion<readonly [z.ZodBoolean, z.ZodPipe<z.ZodEnum<{
-        0: "0";
         1: "1";
+        0: "0";
         true: "true";
         false: "false";
-    }>, z.ZodTransform<boolean, "0" | "1" | "true" | "false">>]>>;
+    }>, z.ZodTransform<boolean, "1" | "0" | "true" | "false">>]>>;
     PRICE_TICK_MIN_INTERVAL_MS: z.ZodDefault<z.ZodUnion<readonly [z.ZodNumber, z.ZodPipe<z.ZodString, z.ZodTransform<number, string>>]>>;
     PRICE_TICK_MIN_PRICE_CHANGE: z.ZodDefault<z.ZodUnion<readonly [z.ZodNumber, z.ZodPipe<z.ZodString, z.ZodTransform<number, string>>]>>;
     SIGNAL_CONTRACT_SERVICE: z.ZodDefault<z.ZodString>;
@@ -103,11 +103,11 @@ export declare const QuanttradeWorkerEnvSchema: z.ZodObject<{
     SIGNAL_CONTRACT_STRATEGY_VERSION: z.ZodDefault<z.ZodString>;
     QUANTTRADE_ORDER_TYPE: z.ZodDefault<z.ZodLiteral<"LIMIT">>;
     QUANTTRADE_SYMBOL_EXCLUSIVITY_ENABLED: z.ZodDefault<z.ZodUnion<readonly [z.ZodBoolean, z.ZodPipe<z.ZodEnum<{
-        0: "0";
         1: "1";
+        0: "0";
         true: "true";
         false: "false";
-    }>, z.ZodTransform<boolean, "0" | "1" | "true" | "false">>]>>;
+    }>, z.ZodTransform<boolean, "1" | "0" | "true" | "false">>]>>;
 }, z.core.$strip>;
 export type QuanttradeWorkerEnv = z.infer<typeof QuanttradeWorkerEnvSchema>;
 /**

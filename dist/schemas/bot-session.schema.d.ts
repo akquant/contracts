@@ -12,6 +12,7 @@ export declare const BotSessionSchema: z.ZodObject<{
     timeframe: z.ZodOptional<z.ZodString>;
     lotSize: z.ZodNumber;
     status: z.ZodEnum<{
+        SCHEDULED: "SCHEDULED";
         STOPPED: "STOPPED";
         STARTING: "STARTING";
         RUNNING: "RUNNING";
@@ -52,6 +53,20 @@ export declare const BotSessionSchema: z.ZodObject<{
         UNREACHABLE: "UNREACHABLE";
     }>>;
     errorReason: z.ZodOptional<z.ZodString>;
+    scheduleMode: z.ZodDefault<z.ZodOptional<z.ZodEnum<{
+        NONE: "NONE";
+        DURATION: "DURATION";
+        TIME_WINDOW: "TIME_WINDOW";
+    }>>>;
+    timezone: z.ZodDefault<z.ZodOptional<z.ZodString>>;
+    scheduleStartAt: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    scheduleEndAt: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    scheduleWindows: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodObject<{
+        start: z.ZodString;
+        end: z.ZodString;
+    }, z.core.$strip>>>>;
+    nextTransitionAt: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    scheduleStatusReason: z.ZodOptional<z.ZodNullable<z.ZodString>>;
 }, z.core.$strip>;
 export type BotSessionContract = z.infer<typeof BotSessionSchema>;
 //# sourceMappingURL=bot-session.schema.d.ts.map

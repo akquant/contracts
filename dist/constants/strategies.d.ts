@@ -2,6 +2,7 @@
  * Canonical Strategy Definitions, Release Status, and Legacy Aliases.
  * Single Source of Truth for Quanttrade strategies across Backend, Worker, and Client.
  */
+import { type CanonicalResolution, type CanonicalTimeframe } from './resolutions';
 export declare const CANONICAL_STRATEGY_IDS: readonly ["HftMicroScalpStrategy", "TrendFollowingStrategy", "MomentumStrategy", "MeanReversionStrategy", "CalendarSpreadStrategy", "HedgingStrategy", "SonicStrategy", "HgWeekly5TpStrategy", "PineScriptStrategy"];
 export type CanonicalStrategyId = (typeof CANONICAL_STRATEGY_IDS)[number];
 export type StrategyReleaseStatus = 'ACTIVE' | 'COMING_SOON' | 'DISABLED' | 'RETIRED';
@@ -29,4 +30,32 @@ export declare function getCanonicalStrategyId(raw?: string, fallback?: Canonica
 export declare function isStrategyActive(strategyId?: string): boolean;
 /** Get list of currently active strategy IDs */
 export declare function getActiveStrategyIds(): CanonicalStrategyId[];
+export interface StrategyTimeframeValidationResult {
+    valid: boolean;
+    code?: 'UNKNOWN_STRATEGY' | 'INVALID_TIMEFRAME_FORMAT' | 'UNSUPPORTED_STRATEGY_TIMEFRAME';
+    strategyId: string;
+    requestedInput: string;
+    canonicalTimeframe?: CanonicalTimeframe;
+    canonicalResolution?: CanonicalResolution;
+    supportedTimeframes: readonly CanonicalTimeframe[];
+    supportedResolutions: readonly CanonicalResolution[];
+    message?: string;
+}
+/**
+ * Get supported canonical timeframes for a given strategy.
+ */
+export declare function getStrategySupportedTimeframes(strategyId: string): readonly CanonicalTimeframe[];
+/**
+ * Get supported canonical resolutions for a given strategy.
+ */
+export declare function getStrategySupportedResolutions(strategyId: string): readonly CanonicalResolution[];
+/**
+ * Get default canonical timeframe for a strategy.
+ */
+export declare function getStrategyDefaultTimeframe(strategyId: string): CanonicalTimeframe;
+/**
+ * Validate whether a timeframe or resolution input is supported by a strategy.
+ * Returns a structured result with error codes and descriptive messages.
+ */
+export declare function validateStrategyTimeframe(rawStrategyId: string, rawTfOrRes: string): StrategyTimeframeValidationResult;
 //# sourceMappingURL=strategies.d.ts.map

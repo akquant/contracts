@@ -9,6 +9,20 @@ export type CanonicalResolution = (typeof CANONICAL_RESOLUTIONS)[number];
 export declare const CANONICAL_TIMEFRAMES: readonly ["1m", "5m", "15m", "30m", "1h", "4h", "1d"];
 export type CanonicalTimeframe = (typeof CANONICAL_TIMEFRAMES)[number];
 export declare const RESOLUTION_TO_TIMEFRAME: Record<CanonicalResolution, CanonicalTimeframe>;
+/** Strict mapping accepting only exact canonical tokens */
+export declare const STRICT_TIMEFRAME_MAP: Record<string, {
+    timeframe: CanonicalTimeframe;
+    resolution: CanonicalResolution;
+}>;
+/**
+ * Strictly parse a timeframe or resolution string.
+ * Returns null if the input is empty, malformed, or not in canonical form.
+ * Never silently coerces or defaults to '15'.
+ */
+export declare function parseStrictCanonicalTimeframe(input?: string): {
+    timeframe: CanonicalTimeframe;
+    resolution: CanonicalResolution;
+} | null;
 export declare const TIMEFRAME_TO_RESOLUTION: Record<string, CanonicalResolution>;
 /** Normalize any incoming timeframe/resolution string to canonical resolution ('15', '60', etc.) */
 export declare function toCanonicalResolution(tfOrRes?: string): CanonicalResolution;

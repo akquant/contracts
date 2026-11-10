@@ -41,5 +41,12 @@ exports.BotSessionSchema = zod_1.z.object({
     workerId: zod_1.z.string().optional(),
     workerHealth: zod_1.z.enum(['HEALTHY', 'DEGRADED', 'UNREACHABLE']).optional(),
     errorReason: zod_1.z.string().optional(),
+    scheduleMode: zod_1.z.enum(['NONE', 'DURATION', 'TIME_WINDOW']).optional().default('NONE'),
+    timezone: zod_1.z.string().optional().default('Asia/Ho_Chi_Minh'),
+    scheduleStartAt: zod_1.z.string().nullable().optional(),
+    scheduleEndAt: zod_1.z.string().nullable().optional(),
+    scheduleWindows: zod_1.z.array(zod_1.z.object({ start: zod_1.z.string(), end: zod_1.z.string() })).nullable().optional(),
+    nextTransitionAt: zod_1.z.string().nullable().optional(),
+    scheduleStatusReason: zod_1.z.string().nullable().optional(),
 });
 //# sourceMappingURL=bot-session.schema.js.map

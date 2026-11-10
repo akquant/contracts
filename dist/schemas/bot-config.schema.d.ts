@@ -1,4 +1,30 @@
 import { z } from 'zod';
+export declare const BotScheduleModeSchema: z.ZodEnum<{
+    NONE: "NONE";
+    DURATION: "DURATION";
+    TIME_WINDOW: "TIME_WINDOW";
+}>;
+export type BotScheduleMode = z.infer<typeof BotScheduleModeSchema>;
+export declare const TimeWindowItemSchema: z.ZodObject<{
+    start: z.ZodString;
+    end: z.ZodString;
+}, z.core.$strip>;
+export type TimeWindowItem = z.infer<typeof TimeWindowItemSchema>;
+export declare const BotScheduleConfigSchema: z.ZodObject<{
+    mode: z.ZodDefault<z.ZodEnum<{
+        NONE: "NONE";
+        DURATION: "DURATION";
+        TIME_WINDOW: "TIME_WINDOW";
+    }>>;
+    timezone: z.ZodDefault<z.ZodString>;
+    startAt: z.ZodOptional<z.ZodString>;
+    endAt: z.ZodOptional<z.ZodString>;
+    windows: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        start: z.ZodString;
+        end: z.ZodString;
+    }, z.core.$strip>>>;
+}, z.core.$strip>;
+export type BotScheduleConfig = z.infer<typeof BotScheduleConfigSchema>;
 export declare const StartBotSchema: z.ZodObject<{
     tradingAccountId: z.ZodString;
     symbol: z.ZodString;
@@ -13,6 +39,20 @@ export declare const StartBotSchema: z.ZodObject<{
     pineScriptCode: z.ZodOptional<z.ZodString>;
     scriptName: z.ZodOptional<z.ZodString>;
     existingLockId: z.ZodOptional<z.ZodString>;
+    schedule: z.ZodOptional<z.ZodObject<{
+        mode: z.ZodDefault<z.ZodEnum<{
+            NONE: "NONE";
+            DURATION: "DURATION";
+            TIME_WINDOW: "TIME_WINDOW";
+        }>>;
+        timezone: z.ZodDefault<z.ZodString>;
+        startAt: z.ZodOptional<z.ZodString>;
+        endAt: z.ZodOptional<z.ZodString>;
+        windows: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            start: z.ZodString;
+            end: z.ZodString;
+        }, z.core.$strip>>>;
+    }, z.core.$strip>>;
 }, z.core.$strip>;
 export type StartBotInput = z.infer<typeof StartBotSchema>;
 export declare const StopBotSchema: z.ZodObject<{
@@ -39,6 +79,20 @@ export declare const RestartBotSchema: z.ZodObject<{
     pineScriptCode: z.ZodOptional<z.ZodString>;
     scriptName: z.ZodOptional<z.ZodString>;
     reason: z.ZodOptional<z.ZodString>;
+    schedule: z.ZodOptional<z.ZodObject<{
+        mode: z.ZodDefault<z.ZodEnum<{
+            NONE: "NONE";
+            DURATION: "DURATION";
+            TIME_WINDOW: "TIME_WINDOW";
+        }>>;
+        timezone: z.ZodDefault<z.ZodString>;
+        startAt: z.ZodOptional<z.ZodString>;
+        endAt: z.ZodOptional<z.ZodString>;
+        windows: z.ZodOptional<z.ZodArray<z.ZodObject<{
+            start: z.ZodString;
+            end: z.ZodString;
+        }, z.core.$strip>>>;
+    }, z.core.$strip>>;
 }, z.core.$strip>;
 export type RestartBotInput = z.infer<typeof RestartBotSchema>;
 //# sourceMappingURL=bot-config.schema.d.ts.map
