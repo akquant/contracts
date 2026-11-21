@@ -14,5 +14,5 @@ export interface CommodityContractSpec {
     currency: 'USD';
 }
 export declare const COMMODITY_CONTRACTS_SPEC: CommodityContractSpec[];
-export declare const DEFAULT_VND_USD_RATE = 25450;
+export declare const DEFAULT_VND_USD_RATE = 25920;
 //# sourceMappingURL=contracts.d.ts.map
