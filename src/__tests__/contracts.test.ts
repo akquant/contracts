@@ -199,13 +199,19 @@ describe('@quanttrade/contracts Unit Test Suite', () => {
         NODE_ENV: 'production',
         PORT: '4000',
         QUANTTRADE_BOT_BASE_URL: 'http://127.0.0.1:3002',
-        QUANTTRADE_AUTO_EXECUTION_ENABLED: 'false',
         QUANTTRADE_LIMIT_ORDER_TIMEOUT_MS: '60000',
       });
       expect(valid.success).toBe(true);
       if (valid.success) {
         expect(valid.data.QUANTTRADE_ORDER_TYPE).toBe('LIMIT');
       }
+    });
+
+    it('strips the retired backend execution flag', () => {
+      const parsed = QuanttradeBackendEnvSchema.parse({
+        QUANTTRADE_AUTO_EXECUTION_ENABLED: 'false',
+      });
+      expect(parsed).not.toHaveProperty('QUANTTRADE_AUTO_EXECUTION_ENABLED');
     });
 
     it('fails fast if backend ORDER_TYPE is attempted to be changed to MARKET', () => {

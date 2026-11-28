@@ -15,19 +15,12 @@ export declare const QuanttradeBackendEnvSchema: z.ZodObject<{
     REDIS_PORT: z.ZodDefault<z.ZodUnion<readonly [z.ZodNumber, z.ZodPipe<z.ZodString, z.ZodTransform<number, string>>]>>;
     REDIS_PASSWORD: z.ZodDefault<z.ZodOptional<z.ZodString>>;
     QUANTTRADE_BOT_BASE_URL: z.ZodDefault<z.ZodString>;
-    QUANTTRADE_CONTROL_API_TOKEN: z.ZodDefault<z.ZodOptional<z.ZodString>>;
     QUANTTRADE_SIGNAL_STREAM: z.ZodDefault<z.ZodString>;
     QUANTTRADE_PRICE_STREAM: z.ZodDefault<z.ZodString>;
     QUANTTRADE_CONSUMER_GROUP: z.ZodDefault<z.ZodString>;
     QUANTTRADE_CONSUMER_NAME: z.ZodOptional<z.ZodString>;
     QUANTTRADE_DLQ_STREAM: z.ZodDefault<z.ZodString>;
     QUANTTRADE_MAX_RETRIES: z.ZodDefault<z.ZodUnion<readonly [z.ZodNumber, z.ZodPipe<z.ZodString, z.ZodTransform<number, string>>]>>;
-    QUANTTRADE_AUTO_EXECUTION_ENABLED: z.ZodDefault<z.ZodUnion<readonly [z.ZodBoolean, z.ZodPipe<z.ZodEnum<{
-        1: "1";
-        0: "0";
-        true: "true";
-        false: "false";
-    }>, z.ZodTransform<boolean, "1" | "0" | "true" | "false">>]>>;
     QUANTTRADE_LIMIT_ORDER_TIMEOUT_MS: z.ZodDefault<z.ZodUnion<readonly [z.ZodNumber, z.ZodPipe<z.ZodString, z.ZodTransform<number, string>>]>>;
     QUANTTRADE_HEARTBEAT_TIMEOUT_SEC: z.ZodDefault<z.ZodUnion<readonly [z.ZodNumber, z.ZodPipe<z.ZodString, z.ZodTransform<number, string>>]>>;
     QUANTTRADE_ORDER_TYPE: z.ZodDefault<z.ZodLiteral<"LIMIT">>;
@@ -65,8 +58,6 @@ export declare const QuanttradeWorkerEnvSchema: z.ZodObject<{
         trace: "trace";
         fatal: "fatal";
     }>>;
-    CONTROL_API_TOKEN: z.ZodDefault<z.ZodOptional<z.ZodString>>;
-    QUANTTRADE_CONTROL_API_TOKEN: z.ZodOptional<z.ZodString>;
     FCOM_BASE_URL: z.ZodString;
     FCOM_WS_URL: z.ZodString;
     REDIS_URL: z.ZodString;
